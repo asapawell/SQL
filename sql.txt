@@ -66,4 +66,7 @@ FROM PC
 GROUP BY hd
 HAVING count(hd)>1
 
-
+13.Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
+SELECT DISTINCT c1.model, c2.model, c1.speed, c1.ram
+FROM pc c1, pc c2
+WHERE c1.speed = c2.speed AND c1.ram = c2.ram AND c1.model>c2.model
