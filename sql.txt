@@ -79,3 +79,33 @@ INNER JOIN Product
 ON Product.model=Printer.model
 WHERE (color='y') 
 AND price=(SELECT MIN(price) FROM Printer WHERE color='y')
+
+15.Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.
+Вывести: maker, средний размер экрана.
+SELECT maker,AVG(screen) AS screen
+FROM Laptop
+LEFT JOIN PRODUCT
+ON Laptop.model=Product.model
+WHERE type='Laptop'
+GROUP BY maker 
+
+16.Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
+SELECT maker, COUNT(model) AS count_model
+FROM Product
+WHERE type='PC'
+GROUP BY maker
+HAVING COUNT(type)>=3
+
+17.Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.
+Вывести: maker, максимальная цена.
+SELECT maker, MAX(price) AS max_price
+FROM Product
+INNER JOIN PC
+ON Product.model=PC.model
+GROUP BY maker
+
+18.Для каждого значения скорости ПК, превышающего 600 МГц, определите среднюю цену ПК с такой же скоростью. Вывести: speed, средняя цена.
+SELECT speed, AVG(price) AS avg_price
+FROM PC
+WHERE speed > 600
+GROUP BY speed
